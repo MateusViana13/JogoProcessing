@@ -1,6 +1,7 @@
 class Bullet {
   float angle, damage = 10, size = 10, speed = 10, x, y;
   Bullet(float startX, float startY, float targetX, float targetY, boolean isPlayerBullet) {
+    soundManager.playShotSound();
     x = startX;
     y = startY;
     speed = isPlayerBullet ? 10 : 2;
