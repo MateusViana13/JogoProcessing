@@ -122,7 +122,7 @@ class Menu{
     text("instruções de Como Jogar", width / 2, 50);
     
     textSize(30);
-    text("AWSD para mover", width / 2, 100);
+    text("WASD para mover", width / 2, 100);
     text("Botão Esquerdo do Mouse para atirar", width / 2, 140);
     text("Botão Direito do Mouse para usar a arma especial", width / 2, 180);
     text("Shift para dar um sprint", width / 2, 220);
@@ -170,11 +170,11 @@ class Menu{
       "Desenvolvedores:",
       "André Franco",
       "Felipe Pereira",
-      "Guilherme Terreri",          
+      "Guilherme Salomão",          
       "Mateus Montini",
       "Mateus viana",      
       "",
-      "© gamf. All Rights Reserved."
+      "gamf. All Rights Reserved."
     };
   
     for (int i = 0; i < credits.length; i++) {

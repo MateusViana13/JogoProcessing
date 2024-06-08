@@ -64,7 +64,7 @@ int cooldownS = 5000;
 
 void setup() {
   size(1000, 1000);
-  p = new Player(width / 2, height / 2, 20, 100, 5);
+  p = new Player(width / 2, height / 2);
   e = new ArrayList<Enemy>();
   b = new ArrayList<Bullet>();
   be = new ArrayList<Bullet>();
@@ -73,7 +73,7 @@ void setup() {
   m = new ArrayList<Missile>();
   
   soundManager = new SoundManager(this);
-  
+  soundManager.loadAudios();
   soundManager.playMenuMusic();
   menu = new Menu();
   menu.generateStars();
@@ -81,7 +81,7 @@ void setup() {
   myFont = createFont("Starjedi.ttf", 36);
   textFont(myFont);
   
-  img = loadImage("sprites/jawa.png");
+  img = loadImage("sprites/jawa_2.png");
   img.resize(0, 200);
 }
 
@@ -108,7 +108,7 @@ void draw() {
   
   //JOGO
   if(SCREEN_SELECTED == 4){
-    background(0);
+    menu.drawStarBackground();
     updateCamera();
     translate(-CAMERAX, -CAMERAY);
     p.display();

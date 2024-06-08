@@ -12,7 +12,7 @@ class Bullet {
     y += sin(angle) * speed;
   }
   void display() {
-    fill(255, 255, 0);
+    fill(255, 0, 0);
     ellipse(x, y, size, size);
   }
   boolean isOffScreen() {
@@ -22,16 +22,20 @@ class Bullet {
 
 class Laser {
   float angle, damage = 50, endX, endY, size = 100, speed, x, y;
+  boolean isPlayerLaser;
+  
   Laser(float startX, float startY, float targetX, float targetY, boolean isPlayerLaser) {
-    if(rightWeapon == LASER)
+    if (rightWeapon == LASER)
       soundManager.playLaser();
     x = startX;
     y = startY;
+    this.isPlayerLaser = isPlayerLaser;
     speed = isPlayerLaser ? 6 : 2;
     angle = atan2(targetY - startY, targetX - startX);
     endX = x + cos(angle) * size;
     endY = y + sin(angle) * size;
   }
+  
   void update() {
     float dx = cos(angle) * speed;
     float dy = sin(angle) * speed;
@@ -40,8 +44,13 @@ class Laser {
     endX += dx;
     endY += dy;
   }
+  
   void display() {
-    stroke(0, 0, 255);
+    if (isPlayerLaser) {
+      stroke(255, 0, 0);
+    } else {
+      stroke(0, 255, 0);
+    }
     line(x, y, endX, endY);
     noStroke();
   }
@@ -94,7 +103,7 @@ class Missile {
       if (currentExplosionFrame < explosionFrames) {
         fill(255, 0, 0, 100);
         ellipse(x, y, explosionRadius * 2, explosionRadius * 2);
-        if(currentExplosionFrame == 0){
+        if (currentExplosionFrame == 0) {
           soundManager.playExplosion();
         }
         currentExplosionFrame++;
@@ -115,20 +124,29 @@ class Missile {
 }
 
 class Companion {
-  float fireRate = 0.2, lastShotTime, size, x, y;
-  Companion(float startX, float startY, float companionSize) {
+  PImage sprite;
+  float fireRate = 0.2, lastShotTime, x, y;
+  int size = 30;
+  float angle;
+
+  Companion(float startX, float startY) {
     x = startX;
     y = startY;
-    size = companionSize;
+    sprite = loadImage("sprites/companion.png");
+    sprite.resize(size, size);
   }
   void move(float targetX, float targetY) {
     x = lerp(x, targetX, 0.05);
     y = lerp(y, targetY, 0.05);
   }
+
   void display() {
-    soundManager.playR2d2();
-    fill(255, 0, 255);
-    ellipse(x, y, size, size);
+    pushMatrix();
+    translate(x, y);
+    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
+    imageMode(CENTER); // Draw the image centered at the (0, 0) point
+    image(sprite, 0, 0);
+    popMatrix();
   }
   void shoot(ArrayList<Bullet> bullets) {
     int currentTime = millis();
@@ -222,6 +240,7 @@ void updateWeaponry() {
         activeC = false;
         cooldownTimerC = millis() / 1000.0;
       }
+      co.angle = atan2(mouseY - (co.y - CAMERAY), mouseX - (co.x - CAMERAX));
     }
   }
 }

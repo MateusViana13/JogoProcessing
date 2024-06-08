@@ -1,18 +1,27 @@
 class Player {
   int x, y, size, health, speed;
+  PImage sprite;
+  float angle;
 
-  Player(int startX, int startY, int startSize, int startHealth, int startSpeed) {
+  Player(int startX, int startY) {
     x = startX;
     y = startY;
-    size = startSize;
-    health = startHealth;
-    speed = startSpeed;
+    size = 30;
+    health = 100;
+    speed = 5;
     keys = new boolean[5];
+    angle = 0;
+    sprite = loadImage("sprites/xwing.png");
+    sprite.resize(size, size);
   }
-
+  
   void display() {
-    fill(0, 255, 0);
-    ellipse(x, y, size, size);
+    pushMatrix();
+    translate(x, y);
+    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
+    imageMode(CENTER); // Draw the image centered at the (0, 0) point
+    image(sprite, 0, 0);
+    popMatrix();
   }
 
   void updatePlayer() {
@@ -32,5 +41,6 @@ class Player {
     if (keys[1]) x = constrain(x - newSpeed, size / 2, MAPSIZE - size / 2);
     if (keys[2]) y = constrain(y + newSpeed, size / 2, MAPSIZE - size / 2);
     if (keys[3]) x = constrain(x + newSpeed, size / 2, MAPSIZE - size / 2);
+    angle = atan2(mouseY - (y - CAMERAY), mouseX - (x - CAMERAX));
   }
 }

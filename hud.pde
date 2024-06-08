@@ -5,7 +5,8 @@ void updateCamera() {
 
 void displayHUD() {
   textSize(16);
-  int widthValue = 50;
+  textAlign(LEFT);
+  int widthValue = 5;
   fill(255);
   text("Life: " + p.health, widthValue, 20);
   text("Kills: " + KILLCOUNT, widthValue, 40);
@@ -24,7 +25,7 @@ void displayHUD() {
     if (rightR > 0) {
       text("Laser Cooldown: " + ceil(rightR / 1000.0) + "s", widthValue, 100);
     } else {
-      text("Laser Cooldown: Ready to Use.", widthValue, 100);
+      text("Laser Cooldown: Ready to use.", widthValue, 100);
     }
   }
   if (rightWeapon == MISSILE) {
@@ -32,7 +33,7 @@ void displayHUD() {
     if (rightR > 0) {
       text("Missile Cooldown: " + ceil(rightR / 1000.0) + "s", widthValue, 100);
     } else {
-      text("Missile Cooldown: Ready to Use.", widthValue, 100);
+      text("Missile Cooldown: Ready to use.", widthValue, 100);
     }
   } else if (rightWeapon == COMPANION) {
     if (activeC) {
@@ -47,7 +48,7 @@ void displayHUD() {
       if (rightR > 0) {
         text("Companion Cooldown: " + rightR + "s", widthValue, 100);
       } else {
-        text("Companion Cooldown: Ready to Use.", widthValue, 100);
+        text("Companion Cooldown: Ready to use.", widthValue, 100);
       }
     }
   }
