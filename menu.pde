@@ -115,7 +115,7 @@ class Menu{
   }
   
   void drawInstructionsMenu() {
-    background(0);
+    drawStarBackground();
     textAlign(CENTER);
     textSize(24);
     fill(255);
@@ -151,24 +151,30 @@ class Menu{
     textAlign(CENTER, CENTER);
     String[] credits = {
       "STAR WARS",
+      "hyperjump",
       "",
-      "Um filme dirigido por",
-      "George Lucas",
+      "um jogo desenvolvido por",
+      "gamf",
       "",
-      "Créditos:",
-      "Roteiro: George Lucas",
-      "Produção: Gary Kurtz",
-      "Música: John Williams",
-      "Efeitos Visuais: Industrial Light & Magic",
+      "Numa galáxia em guerra,",
+      "um piloto destemido",
+      "embarca na nave Hyperdrive",
+      "para enfrentar inimigos intermináveis.",
+      "Com reflexos afiados ",
+      "e estratégia implacável,",
+      "ele desafia a Estrela da Morte ",
+      "e luta pela maior pontuação,",
+      "Cada vitória é uma luz na escuridão,",
+      "enquanto a batalha sem fim continua.",
       "",
-      "Atores:",
-      "Mark Hamill",
-      "Harrison Ford",
-      "Carrie Fisher",
-      "Peter Cushing",
-      "e muitos outros...",
+      "Desenvolvedores:",
+      "André Franco",
+      "Felipe Pereira",
+      "Guilherme Terreri",          
+      "Mateus Montini",
+      "Mateus viana",      
       "",
-      "© Lucasfilm Ltd. All Rights Reserved."
+      "© gamf. All Rights Reserved."
     };
   
     for (int i = 0; i < credits.length; i++) {
