@@ -34,17 +34,20 @@ void mousePressed() {
     boolean clickInstructions = isMouseOverButton(width / 2, height / 2 + 175, mouseX, mouseY, 250);
     
     if (clickCreditos) {
+      soundManager.playButtonClick();
       SCREEN_SELECTED = 1;
       soundManager.stopMenuMusic();
       soundManager.playCreditMusic();   
     }
     
     if (clickJogar) {
+      soundManager.playButtonClick();
       resetGame();
       SCREEN_SELECTED = 3;
     }
     
     if(clickInstructions){
+      soundManager.playButtonClick();
       SCREEN_SELECTED = 2;
     }
   }
@@ -53,6 +56,7 @@ void mousePressed() {
     boolean clickMenu = isMouseOverButton(width / 2, height / 2 - 50, mouseX, mouseY, 400);
     
     if(clickMenu){
+      soundManager.playButtonClick();
       SCREEN_SELECTED = 0;  
     }
     
@@ -67,14 +71,17 @@ void mousePressed() {
     boolean clickCompanion = isMouseOverButton(width / 2 + 250, height / 2, mouseX, mouseY, 200);
     
     if(clickLaser){
+      soundManager.playButtonClick();
       rightWeapon = 0;
     }
     
     if(clickMissil){
+      soundManager.playButtonClick();
       rightWeapon = 1;
     }
     
     if(clickCompanion){
+      soundManager.playButtonClick();
       rightWeapon = 2;
     }
     
@@ -82,10 +89,12 @@ void mousePressed() {
     boolean clickMenu = isMouseOverButton(width / 2, height / 2 + 200, mouseX, mouseY, 250);
     
     if(clickMenu){
+      soundManager.playButtonClick();
       SCREEN_SELECTED = 0;
     }
     
     if(clickJogar){
+      soundManager.playButtonClick();
       resetGame();
       SCREEN_SELECTED = 4;
     }
@@ -106,10 +115,12 @@ void mousePressed() {
     boolean clickJogarNovamente = isMouseOverButton(width / 2, height / 2 + 150, mouseX, mouseY, 350);
     
     if(clickMenu){
+      soundManager.playButtonClick();
       SCREEN_SELECTED = 0;
     }
     
     if(clickJogarNovamente){
+      soundManager.playButtonClick();
       resetGame();
       SCREEN_SELECTED = 4;
     }

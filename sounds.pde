@@ -8,6 +8,10 @@ class SoundManager{
   AudioPlayer creditMusic;
   AudioPlayer shotSound;
   AudioPlayer easterEgg;
+  AudioPlayer r2d2;
+  AudioPlayer laser;
+  AudioPlayer explosion;
+  AudioPlayer buttonClick;
   
   SoundManager(PApplet p) {
     minim = new Minim(p);
@@ -37,8 +41,28 @@ class SoundManager{
     easterEgg.play();
   }
   
+  void playLaser(){
+    laser = minim.loadFile("sounds/laser.mp3");
+    laser.play();
+  }
+  
+  void playR2d2(){
+    r2d2 = minim.loadFile("sounds/r2d2_1.mp3");
+    r2d2.play();
+  }
+  
   void stopMenuMusic(){
     menuMusic.close();
+  }
+  
+  void playExplosion(){
+    explosion = minim.loadFile("sounds/explosion.mp3");
+    explosion.play();
+  }
+  
+  void playButtonClick(){
+    buttonClick = minim.loadFile("sounds/click.mp3");
+    buttonClick.play();
   }
   
   //CREDITOS

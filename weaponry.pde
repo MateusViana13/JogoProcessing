@@ -22,6 +22,8 @@ class Bullet {
 class Laser {
   float angle, damage = 50, endX, endY, size = 100, speed, x, y;
   Laser(float startX, float startY, float targetX, float targetY, boolean isPlayerLaser) {
+    if(rightWeapon == LASER)
+      soundManager.playLaser();
     x = startX;
     y = startY;
     speed = isPlayerLaser ? 6 : 2;
@@ -91,6 +93,9 @@ class Missile {
       if (currentExplosionFrame < explosionFrames) {
         fill(255, 0, 0, 100);
         ellipse(x, y, explosionRadius * 2, explosionRadius * 2);
+        if(currentExplosionFrame == 0){
+          soundManager.playExplosion();
+        }
         currentExplosionFrame++;
       }
     }
@@ -120,6 +125,7 @@ class Companion {
     y = lerp(y, targetY, 0.05);
   }
   void display() {
+    soundManager.playR2d2();
     fill(255, 0, 255);
     ellipse(x, y, size, size);
   }
