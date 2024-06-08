@@ -7,6 +7,7 @@ class SoundManager{
   AudioPlayer menuMusic;
   AudioPlayer creditMusic;
   AudioPlayer shotSound;
+  AudioPlayer easterEgg;
   
   SoundManager(PApplet p) {
     minim = new Minim(p);
@@ -29,6 +30,11 @@ class SoundManager{
     }
     shotSound.setGain(-15);
     shotSound.play();
+  }
+  
+  void playEasterEgg(){
+    easterEgg = minim.loadFile("sounds/montini.mp3");
+    easterEgg.play();
   }
   
   void stopMenuMusic(){

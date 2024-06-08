@@ -25,11 +25,10 @@ class Menu{
     textSize(52);
     text("Star Wars", width / 2, height / 2 - 300);
     
-     fill(255, 0, 0);
+    fill(255, 0, 0);
     textAlign(CENTER);
     textSize(76);
     text("Hyperjump", width / 2, height / 2 - 240);
-    
     
     fill(255);
     textAlign(CENTER);
@@ -37,29 +36,37 @@ class Menu{
     text("Menu inicial", width / 2, height / 2 - 100);
     
     // Desenha o botão "Começar Jogo"
-    drawButton(width / 2, height / 2 - 25, "Começar Jogo");
+    drawButton(width / 2, height / 2 - 25, "Começar jogo", 250);
     
     // Desenha o botão "Créditos"
-    drawButton(width / 2, height / 2 + 75, "Créditos");
+    drawButton(width / 2, height / 2 + 75, "Créditos", 250);
+    
+    // Desenha o botão "Como jogar"
+    drawButton(width / 2, height / 2 + 175, "Como jogar", 250);
   }
 
-  void drawMenuGameOver() {
-    background(0);
+  void drawMenuGameOver(int score, int killCount) {
+    drawStarBackground();
+    
     fill(255, 0, 0); // Cor vermelha para o texto "Game Over"
     textAlign(CENTER);
-    textSize(32);
-    text("Game over", width / 2, height / 2 - 100);
+    textSize(64);
+    text("Game over", width / 2, height / 2 - 200);
     
     // Mostrar o score
     fill(255);
-    textSize(24);
-    text("Score: ", width / 2, height / 2 - 50);
+    textSize(36);
+    text("Score: " + score, width / 2, height / 2 - 75);
+    
+    fill(255);
+    textSize(36);
+    text("Kills: " + killCount, width / 2, height / 2 - 25);
   
     // Desenhar o botão "Menu"
-    drawButton(width / 2, height / 2 + 50, "Menu");
+    drawButton(width / 2, height / 2 + 50, "Menu", 350);
   
     // Desenhar o botão "Jogar Novamente"
-    drawButton(width / 2, height / 2 + 150, "Jogar novamente");
+    drawButton(width / 2, height / 2 + 150, "Jogar novamente", 350);
   }
 
   void drawStarBackground() {
@@ -70,24 +77,68 @@ class Menu{
     } 
   }
   
-  void drawGameOver(){
+   void drawMenuSelecaoArmas() {
+    drawStarBackground(); 
+
+    fill(255);
+    textAlign(CENTER);
+    textSize(32);
+    text("Selecione sua Arma", width / 2, height / 2 - 300);
   
-  }
+    textSize(24);
+    
+    // Desenhar o primeiro botão
+    drawWeaponButton(width / 2 - 250, height / 2, "Laser", 0);
   
-  void drawMenuSelecao(){
+    // Desenhar o segundo botão
+    drawWeaponButton(width / 2, height / 2, "Missil", 1);
   
-  }
-  
-  void drawInstrucao(){
-  
+    // Desenhar o terceiro botão
+    drawWeaponButton(width / 2 + 250, height / 2, "Companheiro", 2);
+    
+    drawButton(width / 2, height / 2 + 100, "jogar", 250);
+    
+    drawButton(width / 2, height / 2 + 200, "Menu", 250);
   }
 
-  void drawButton(float x, float y, String label) {
+  void drawWeaponButton(float x, float y, String label, int index) {
+    rectMode(CENTER);
+    if (rightWeapon == index) {
+      fill(0, 255, 0); // Verde para a arma selecionada
+    } else {
+      fill(255); // Branco para outras opções
+    }
+    rect(x, y, 200, 50);
+    fill(0);
+    textSize(24);
+    text(label, x, y + 8);
+  }
+  
+  void drawInstructionsMenu() {
+    background(0);
+    textAlign(CENTER);
+    textSize(24);
+    fill(255);
+    text("instruções de Como Jogar", width / 2, 50);
+    
+    textSize(30);
+    text("AWSD para mover", width / 2, 100);
+    text("Botão Esquerdo do Mouse para atirar", width / 2, 140);
+    text("Botão Direito do Mouse para usar a arma especial", width / 2, 180);
+    text("Shift para dar um sprint", width / 2, 220);
+    
+    // Desenhar botão "Voltar ao Menu Principal"
+    drawButton(width / 2, height / 2 - 50, "voltar ao menu principal", 400);
+    
+    image(img, width - 150, height - 200);
+  }
+
+  void drawButton(float x, float y, String label, float size) {
     rectMode(CENTER);
     stroke(255, 255, 0);
     strokeWeight(3);
     fill(0);
-    rect(x, y, 250, 50);
+    rect(x, y, size, 50);
     fill(255, 255, 0);
     noStroke();
     textSize(24);
@@ -133,6 +184,6 @@ class Menu{
       crawlY = 50 - (credits.length - 1) * lineHeight;
     }
     
-    menu.drawButton(150, 50, "F1 - Sair");
+    menu.drawButton(150, 50, "F1 - Sair", 250);
   }
 }

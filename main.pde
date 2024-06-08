@@ -1,6 +1,7 @@
 import java.awt.event.KeyEvent;
 
 Player p;
+PImage img;
 ArrayList<Enemy> e = new ArrayList<>();
 ArrayList<Bullet> b; 
 ArrayList<Bullet> be; // BULLETS FOR ENEMIES
@@ -79,6 +80,9 @@ void setup() {
   
   myFont = createFont("Starjedi.ttf", 36);
   textFont(myFont);
+  
+  img = loadImage("sprites/jawa.png");
+  img.resize(0, 200);
 }
 
 void draw() {
@@ -94,12 +98,12 @@ void draw() {
   
   //INSTRUÇÃO DE COMO JOGAR
   if(SCREEN_SELECTED == 2){
-  
+    menu.drawInstructionsMenu();
   }
   
   //SELEÇÃO ARMA
   if(SCREEN_SELECTED == 3){
-
+    menu.drawMenuSelecaoArmas();
   }
   
   //JOGO
@@ -119,6 +123,6 @@ void draw() {
   
   //GAME OVER
   if(SCREEN_SELECTED == 5){
-    menu.drawMenuGameOver();
+    menu.drawMenuGameOver(TOTALSCORE, KILLCOUNT);
   }
 }

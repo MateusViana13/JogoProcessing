@@ -29,8 +29,9 @@ void keyReleased() {
 void mousePressed() {
     if (SCREEN_SELECTED == 0) {
     // Verifica se o clique foi dentro do botão
-    boolean clickJogar = isMouseOverButton(width / 2, height / 2 - 25, mouseX, mouseY);
-    boolean clickCreditos = isMouseOverButton(width / 2, height / 2 + 75, mouseX, mouseY);
+    boolean clickJogar = isMouseOverButton(width / 2, height / 2 - 25, mouseX, mouseY, 250);
+    boolean clickCreditos = isMouseOverButton(width / 2, height / 2 + 75, mouseX, mouseY, 250);
+    boolean clickInstructions = isMouseOverButton(width / 2, height / 2 + 175, mouseX, mouseY, 250);
     
     if (clickCreditos) {
       SCREEN_SELECTED = 1;
@@ -39,6 +40,53 @@ void mousePressed() {
     }
     
     if (clickJogar) {
+      resetGame();
+      SCREEN_SELECTED = 3;
+    }
+    
+    if(clickInstructions){
+      SCREEN_SELECTED = 2;
+    }
+  }
+  
+  if(SCREEN_SELECTED == 2){
+    boolean clickMenu = isMouseOverButton(width / 2, height / 2 - 50, mouseX, mouseY, 400);
+    
+    if(clickMenu){
+      SCREEN_SELECTED = 0;  
+    }
+    
+    if (mouseX >= (width - 150) && mouseX <= (width - 150)+ 100 && mouseY >= (height - 200) && mouseY <= (height - 200) + 200) {
+      soundManager.playEasterEgg();
+    }
+  }
+  
+  if(SCREEN_SELECTED == 3){
+    boolean clickLaser = isMouseOverButton(width / 2 - 250, height / 2, mouseX, mouseY, 200);
+    boolean clickMissil = isMouseOverButton(width / 2, height / 2 , mouseX, mouseY, 200);
+    boolean clickCompanion = isMouseOverButton(width / 2 + 250, height / 2, mouseX, mouseY, 200);
+    
+    if(clickLaser){
+      rightWeapon = 0;
+    }
+    
+    if(clickMissil){
+      rightWeapon = 1;
+    }
+    
+    if(clickCompanion){
+      rightWeapon = 2;
+    }
+    
+    boolean clickJogar = isMouseOverButton(width / 2, height / 2 + 100, mouseX, mouseY, 250);
+    boolean clickMenu = isMouseOverButton(width / 2, height / 2 + 200, mouseX, mouseY, 250);
+    
+    if(clickMenu){
+      SCREEN_SELECTED = 0;
+    }
+    
+    if(clickJogar){
+      resetGame();
       SCREEN_SELECTED = 4;
     }
   }
@@ -50,6 +98,20 @@ void mousePressed() {
     }
     if (mouseButton == RIGHT) {
       isRightPressed = true; // Set the flag when right mouse button is pressed
+    }
+  }
+  
+  if(SCREEN_SELECTED == 5){
+    boolean clickMenu  = isMouseOverButton(width / 2, height / 2 + 50, mouseX, mouseY, 350);
+    boolean clickJogarNovamente = isMouseOverButton(width / 2, height / 2 + 150, mouseX, mouseY, 350);
+    
+    if(clickMenu){
+      SCREEN_SELECTED = 0;
+    }
+    
+    if(clickJogarNovamente){
+      resetGame();
+      SCREEN_SELECTED = 4;
     }
   }
 }
@@ -94,8 +156,21 @@ void handleMouseInput() {
   }
 }
 
-boolean isMouseOverButton(float buttonX, float buttonY, float mouseX, float mouseY) {
-  float buttonWidth = 250;
+void resetGame(){
+  p = new Player(width / 2, height / 2, 20, 100, 5);
+  KILLCOUNT = 0;
+  TOTALSCORE = 0;
+  CAMERAX = 0;
+  CAMERAY = 0;
+  e = new ArrayList<Enemy>();
+  b = new ArrayList<Bullet>();
+  be = new ArrayList<Bullet>();
+  l = new ArrayList<Laser>();
+  le = new ArrayList<Laser>();
+  m = new ArrayList<Missile>();
+}
+
+boolean isMouseOverButton(float buttonX, float buttonY, float mouseX, float mouseY, float buttonWidth) {
   float buttonHeight = 50;
   
   // Calcular os limites do botão
