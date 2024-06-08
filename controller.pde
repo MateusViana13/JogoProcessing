@@ -46,6 +46,7 @@ void mousePressed() {
   if(SCREEN_SELECTED == 4){
     if (mouseButton == LEFT) {
       isLeftPressed = true; // Set the flag when left mouse button is pressed
+      soundManager.playShotSound();
     }
     if (mouseButton == RIGHT) {
       isRightPressed = true; // Set the flag when right mouse button is pressed
