@@ -2,7 +2,6 @@ void updateCamera() {
   CAMERAX = constrain(p.x - VIEWSIZE / 2, 0, MAPSIZE - VIEWSIZE);
   CAMERAY = constrain(p.y - VIEWSIZE / 2, 0, MAPSIZE - VIEWSIZE);
 }
-
 void displayHUD() {
   textSize(16);
   textAlign(LEFT);
@@ -11,14 +10,14 @@ void displayHUD() {
   text("Life: " + p.health, widthValue, 20);
   text("Kills: " + KILLCOUNT, widthValue, 40);
   text("Score: " + TOTALSCORE, widthValue, 60);
-  // Sprint Alert
+  // SPRINT ALERT
   int sprintR = cooldownS - (millis() - lastS);
   if (sprintR > 0) {
     text("Sprint Cooldown: " + ceil(sprintR / 1000.0) + "s", widthValue, 80);
   } else {
     text("Sprint Ready", widthValue, 80);
   }
-  // RightWeapon Alert
+  // RIGHT WEAPON ALERT
   int currentTime = millis();
   if (rightWeapon == LASER) {
     int rightR = cooldownL - (currentTime - lastL);

@@ -1,23 +1,17 @@
-// ADD ON DISPLAY TO CHECK THEIR HEALTH
-// text("Life: " + health, x - size / 2, y + size / 2 + 20);
-
 class Enemy {
-  int x, y, damage, health, size, speed;
   boolean hitR = false; // IS HIT BY RIGHT WEAPON?
-  PImage sprite;
+  int x, y, damage, health, size, speed;
   float angle;
-
+  PImage sprite;
   Enemy(int x, int y) {
     this.x = x;
     this.y = y;
     this.damage = 10;
     this.health = 50;
-    this.size = 25;
+    this.size = 30;
     this.speed = 2;
-    this.sprite = loadImage("sprites/tie.png");
-    this.sprite.resize(size, size);
+    this.sprite = sp.imgTie;
   }
-
   void move() {
     float dx = x - p.x;
     float dy = y - p.y;
@@ -29,72 +23,41 @@ class Enemy {
       y = (int)constrain(y - unitY * speed, size / 2, MAPSIZE - size / 2);
     }
   }
-
   void display() {
     pushMatrix();
     translate(x, y);
-    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
-    imageMode(CENTER); // Draw the image centered at the (0, 0) point
+    rotate(angle + HALF_PI);
+    imageMode(CENTER);
     image(sprite, 0, 0);
     popMatrix();
   }
 }
-
 class Strong extends Enemy {
-  PImage sprite;
   Strong(int x, int y) {
     super(x, y);
     damage *= 2;
     health *= 2;
-    sprite = loadImage("sprites/strong.png");
-    sprite.resize(size, size);
-  }
-
-  void display() {
-    pushMatrix();
-    translate(x, y);
-    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
-    imageMode(CENTER); // Draw the image centered at the (0, 0) point
-    image(sprite, 0, 0);
-    popMatrix();
+    this.sprite = sp.imgTieStrong;
   }
 }
-
 class Fast extends Enemy {
-  PImage sprite;
-
   Fast(int x, int y) {
     super(x, y);
     damage /= 2;
     health /= 2;
     speed *= 2;
-    sprite = loadImage("sprites/fast.png");
-    sprite.resize(size, size);
-  }
-
-  void display() {
-    pushMatrix();
-    translate(x, y);
-    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
-    imageMode(CENTER); // Draw the image centered at the (0, 0) point
-    image(sprite, 0, 0);
-    popMatrix();
+    this.sprite = sp.imgTieFast;
   }
 }
-
 class Shooter extends Enemy {
   int intervalS = 2000; // SHOOT INTERVAL
   int lastS = 0; // LAST SHOOT
-  PImage sprite;
-
   Shooter(int x, int y) {
     super(x, y);
     damage /= 2;
     speed /= 2;
-    sprite = loadImage("sprites/shooter.png");
-    sprite.resize(size, size);
+    this.sprite = sp.imgTieShooter;
   }
-
   void move() {
     super.move();
     int now = millis();
@@ -103,29 +66,15 @@ class Shooter extends Enemy {
       lastS = now;
     }
   }
-
-  void display() {
-    pushMatrix();
-    translate(x, y);
-    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
-    imageMode(CENTER); // Draw the image centered at the (0, 0) point
-    image(sprite, 0, 0);
-    popMatrix();
-  }
 }
-
 class Runaway extends Enemy {
-  PImage sprite;
-
   Runaway(int x, int y) {
     super(x, y);
     this.damage = 100;
     health *= 2;
     this.speed = 3;
-    sprite = loadImage("sprites/asteroid2.png");
-    sprite.resize(size, size);
+    this.sprite = sp.imgComet;
   }
-
   void move() {
     float dx = x - p.x;
     float dy = y - p.y;
@@ -139,33 +88,20 @@ class Runaway extends Enemy {
       }
     }
   }
-
-  void display() {
-    pushMatrix();
-    translate(x, y);
-    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
-    imageMode(CENTER); // Draw the image centered at the (0, 0) point
-    image(sprite, 0, 0);
-    popMatrix();
-  }
 }
-
 class Boss extends Enemy {
   int intervalT = 6000; // TELEPORT INTERVAL
   int lastT = 0; // LAST TELEPORT
   int intervalL = 10000; // LASER INTERVAL
   int lastBL = 0; // LAST LASER
-  PImage sprite;
-
   Boss(int x, int y) {
     super(x, y);
     health *= 5;
-    size = 40;
+    size = 70;
+    speed /= 2;
     this.damage = 25;
-    sprite = loadImage("sprites/deathstar.png");
-    sprite.resize(size, size);
+    this.sprite = sp.imgDeathStar;
   }
-
   void move() {
     super.move();
     int now = millis();
@@ -179,12 +115,14 @@ class Boss extends Enemy {
       lastBL = now;
     }
   }
-
   void display() {
-    image(sprite, x - size / 2, y - size / 2);
+    pushMatrix();
+    translate(x, y);
+    imageMode(CENTER);
+    image(sprite, 0, 0);
+    popMatrix();
   }
 }
-
 void updateEnemies() {
   spawnEnemies();
   for (Enemy en : e) {
@@ -193,10 +131,15 @@ void updateEnemies() {
     en.angle = atan2(p.y - (en.y - CAMERAY), p.x - (en.x - CAMERAX));
   }
 }
-
 void spawnEnemies() {
   int currentEnemies = e.size();
-  int numEnemies = max(min(MAXENEMIES, (int)(log(KILLCOUNT + 1) * 2.5)), MINENEMIES);
+  int numEnemies;
+  if (KILLCOUNT >= MAX_KILLCOUNT) {
+    numEnemies = MAXENEMIES;
+  } else {
+    numEnemies = MINENEMIES + (KILLCOUNT * (MAXENEMIES - MINENEMIES) / MAX_KILLCOUNT);
+  }
+  numEnemies = max(min(MAXENEMIES, numEnemies), MINENEMIES);
   if (currentEnemies < numEnemies) {
     for (int i = 0; i < numEnemies - currentEnemies; i++) {
       int enemyX = int(random(MAPSIZE));

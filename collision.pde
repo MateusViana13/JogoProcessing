@@ -6,7 +6,6 @@ boolean isHitB(Player player, ArrayList<Bullet> bullets) {
   }
   return false;
 }
-
 boolean isHitL(Player player, ArrayList<Laser> lasers) {
   for (Laser l : lasers) {
     if (dist(player.x, player.y, l.x, l.y) < (player.size / 2 + l.size / 2)) {
@@ -15,7 +14,6 @@ boolean isHitL(Player player, ArrayList<Laser> lasers) {
   }
   return false;
 }
-
 void checkCollisions() {
   for (int i = e.size() - 1; i >= 0; i--) {
     Enemy en = e.get(i);
@@ -63,7 +61,6 @@ void checkCollisions() {
     }
   }
 }
-
 void enemyDestroyed(Enemy en) {
   if (en instanceof Strong) TOTALSCORE += 2;
   else if (en instanceof Fast) TOTALSCORE += 2;

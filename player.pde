@@ -1,29 +1,23 @@
 class Player {
   int x, y, size, health, speed;
-  PImage sprite;
   float angle;
-
-  Player(int startX, int startY) {
-    x = startX;
-    y = startY;
-    size = 30;
+  Player() {
+    x = MAPSIZE / 2;
+    y = MAPSIZE / 2;
+    size = 40;
     health = 100;
     speed = 5;
     keys = new boolean[5];
     angle = 0;
-    sprite = loadImage("sprites/xwing.png");
-    sprite.resize(size, size);
   }
-  
   void display() {
     pushMatrix();
     translate(x, y);
-    rotate(angle + HALF_PI); // Rotate so that the image faces upwards by default
-    imageMode(CENTER); // Draw the image centered at the (0, 0) point
-    image(sprite, 0, 0);
+    rotate(angle + HALF_PI);
+    imageMode(CENTER);
+    image(sp.imgXWing, 0, 0);
     popMatrix();
   }
-
   void updatePlayer() {
     if (millis() - lastS >= cooldownS) {
       if (keys[4]) {
